@@ -1,4 +1,5 @@
 # MyApp
+This is a practice project following [Maximilian's Angular course](https://www.udemy.com/the-complete-guide-to-angular-2/#instructor-1)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.5.
 
