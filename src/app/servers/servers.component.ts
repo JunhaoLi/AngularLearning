@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { runInThisContext } from 'vm';
 
 @Component({
   selector: 'app-servers',
@@ -8,7 +9,13 @@ import { Component, OnInit } from '@angular/core';
 export class ServersComponent implements OnInit {
 
   allowNewServer = false;
-  serverCreationStatus = 'No server was created!';
+  serverName = 'TestServer';
+  serverCreated = false;
+  servers = ['my test server', 'my test server 2'];
+
+  testButtonToggle = false;
+  testButtonLog = [];
+  password = 'salmon';
 
   constructor() {
     setTimeout(() => {
@@ -20,6 +27,16 @@ export class ServersComponent implements OnInit {
   }
 
   onCreateServer() {
-    this.serverCreationStatus = 'Server was created!';
+    this.serverCreated = true;
+    this.servers.push(this.serverName);
+  }
+
+  onUpdateServerName(event: any) {
+    this.serverName = event.target;
+  }
+
+  onTestButtonClick() {
+    this.testButtonToggle = !this.testButtonToggle;
+    this.testButtonLog.push(new Date());
   }
 }
