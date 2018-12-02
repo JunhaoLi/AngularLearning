@@ -1,7 +1,6 @@
-# MyApp
-This is a practice project following [Maximilian's Angular course](https://www.udemy.com/the-complete-guide-to-angular-2/#instructor-1)
+# MyFirstApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.5.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.0.
 
 ## Development server
 
@@ -14,11 +13,6 @@ Run `ng generate component component-name` to generate a new component. You can 
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-* master branch is clean project created by angular cli
-* develop branch is clean project after chapter 2
-* s[number] branch means the branch for section [number]
-* for each course project, I will create a named branch after it is completed
 
 ## Running unit tests
 
