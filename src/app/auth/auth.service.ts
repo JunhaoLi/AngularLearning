@@ -40,7 +40,6 @@ export class AuthService {
 
     loadUser() {
         firebase.auth().onAuthStateChanged((currentUser) => {
-            console.log(currentUser);
             if (currentUser === null) {
                 this.token = null;
             }
