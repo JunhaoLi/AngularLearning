@@ -12,7 +12,7 @@ export class RecipeService {
 
     private recipes: Recipe[] = [
         new Recipe(
-            'Tasty Schnitzel',
+            'Tasty Schnitzel (unfetched)',
             'This is simply a test',
             'https://upload.wikimedia.org/wikipedia/commons/1/15/Recipe_logo.jpeg',
             [
@@ -20,7 +20,7 @@ export class RecipeService {
                 new Ingredient('French Fries', 20) 
             ]),
         new Recipe(
-            'Big Fat Burger',
+            'Big Fat Burger (unfetched)',
             'This is simply a test',
             'https://upload.wikimedia.org/wikipedia/commons/1/15/Recipe_logo.jpeg',
             [

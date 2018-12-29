@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Response } from "@angular/http";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpRequest } from "@angular/common/http";
 
 import { RecipeService } from "../recipes/recipe.service";
 import { Recipe } from "../recipes/recipe.model";
@@ -16,13 +15,26 @@ export class DataStorageService {
         private authService: AuthService) {}
 
     storeRecipe() {
-        let tk = this.authService.getToken();
-        return this.httpClient.put('https://angularlearning-hans.firebaseio.com/recipe.json?auth=' + tk, this.recipeService.getRecipes());
+        const req = new HttpRequest(
+            'PUT',
+            'https://angularlearning-hans.firebaseio.com/recipe.json',
+            this.recipeService.getRecipes(),
+            {
+                reportProgress: true
+            }
+        );
+
+        return this.httpClient.request(req);
     }
 
     getRecipes() {
-        let tk = this.authService.getToken();
-        return this.httpClient.get<Recipe[]>('https://angularlearning-hans.firebaseio.com/recipe.json?auth=' + tk)
+        return this.httpClient
+        .get<Recipe[]>(
+            'https://angularlearning-hans.firebaseio.com/recipe.json', 
+            {
+                observe: 'body'
+            }
+        )
         .map((recipes) => {
             for (let recipe of recipes) {
                 if (!recipe['ingredients']) {
