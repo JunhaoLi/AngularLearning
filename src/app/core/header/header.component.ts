@@ -1,25 +1,34 @@
-import { Component } from '@angular/core';
-import { Response } from '@angular/http';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { DataStorageService } from '../../shared/data-storage.service';
 import { AuthService } from '../../auth/auth.service';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+
+import * as fromApp from 'src/app/store/app.reducers';
+import * as fromAuth from '../../auth/store/auth.reducers';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
+
+  authState: Observable<fromAuth.State>;
 
   constructor(
     private router: Router,
     private dataStorageService: DataStorageService,
-    private authService: AuthService) {}
+    private authService: AuthService,
+    private store: Store<fromApp.AppState>) {}
+
+  ngOnInit() {
+    this.authState = this.store.select('auth');
+  }
 
   onSaveData() {
-    this.dataStorageService.storeRecipe().subscribe((response) => {
-      // console.log(response);
-    });
+    this.dataStorageService.storeRecipe().subscribe(() => {});
   }
 
   onFetchData() {
