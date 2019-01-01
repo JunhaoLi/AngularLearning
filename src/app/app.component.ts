@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import  * as firebase from 'firebase';
+
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-root',
@@ -7,13 +8,10 @@ import  * as firebase from 'firebase';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-
-  constructor(){}
-  
   ngOnInit() {
     firebase.initializeApp({
-      apiKey: "AIzaSyC-AvpfVMYfqd5VLYR8PCkIAIHQp2SSuLE",
-      authDomain: "angularlearning-hans.firebaseapp.com"
+      apiKey: 'AIzaSyC-AvpfVMYfqd5VLYR8PCkIAIHQp2SSuLE',
+      authDomain: 'angularlearning-hans.firebaseapp.com'
     });
   }
 }

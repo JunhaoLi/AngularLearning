@@ -1,66 +1,68 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
-
-import * as AuthActions from './auth.actions';
-import * as firebase from 'firebase';
+import { Router } from '@angular/router';
 import { map, switchMap, mergeMap, tap } from 'rxjs/operators';
 import { from } from 'rxjs';
-import { Router } from '@angular/router';
+
+import * as firebase from 'firebase';
+
+import * as AuthActions from './auth.actions';
 
 @Injectable()
 export class AuthEffects {
     @Effect()
-    authSignup = this.actions$
-    .ofType(AuthActions.TRY_SIGNUP)
-    .pipe(map((action: AuthActions.TrySignup) => {
+    authSignup = this.actions$.ofType(AuthActions.TRY_SIGNUP)
+    .pipe(
+        map((action: AuthActions.TrySignup) => {
         return action.payload;
-    }))
-    .pipe(switchMap((authData: {username: string, password: string}) => {
-        return from(firebase.auth().createUserWithEmailAndPassword(authData.username, authData.password));
-    }))
-    .pipe(switchMap(() => {
-        return from(firebase.auth().currentUser.getIdToken());
-    }))
-    .pipe(mergeMap((token: string) => {
-        return [
-        {
-            type: AuthActions.SIGNUP
-        },
-        {
-            type: AuthActions.SET_TOKEN,
-            payload: token
-        }];
-    }));
+        }),
+        switchMap((authData: {username: string, password: string}) => {
+            return from(firebase.auth().createUserWithEmailAndPassword(authData.username, authData.password));
+        }),
+        switchMap(() => {
+            return from(firebase.auth().currentUser.getIdToken());
+        }),
+        mergeMap((token: string) => {
+            return [
+            {
+                type: AuthActions.SIGNUP
+            },
+            {
+                type: AuthActions.SET_TOKEN,
+                payload: token
+            }];
+        })
+    );
 
     @Effect()
-    authSignin = this.actions$
-    .ofType(AuthActions.TRY_SIGNIN)
-    .pipe(map((action: AuthActions.TrySignin) => {
-        return action.payload;
-    }))
-    .pipe(switchMap((authData: {username: string, password: string}) => {
-        return from(firebase.auth().signInWithEmailAndPassword(authData.username, authData.password));
-    }))
-    .pipe(switchMap(() => {
-        return from(firebase.auth().currentUser.getIdToken());
-    }))
-    .pipe(mergeMap((token: string) => {
-        this.router.navigate(['/']);
-        return [
-        {
-            type: AuthActions.SIGNUP
-        },
-        {
-            type: AuthActions.SET_TOKEN,
-            payload: token
-        }];
-    }));
+    authSignin = this.actions$.ofType(AuthActions.TRY_SIGNIN)
+    .pipe(
+        map((action: AuthActions.TrySignin) => {
+            return action.payload;
+        }),
+        switchMap((authData: {username: string, password: string}) => {
+            return from(firebase.auth().signInWithEmailAndPassword(authData.username, authData.password));
+        }),
+        switchMap(() => {
+            return from(firebase.auth().currentUser.getIdToken());
+        }),
+        mergeMap((token: string) => {
+            this.router.navigate(['/']);
+            return [
+            {
+                type: AuthActions.SIGNUP
+            },
+            {
+                type: AuthActions.SET_TOKEN,
+                payload: token
+            }];
+        })
+    );
 
     // reducer still trigger, even though we don't dispatch here
     // but effect always trigger first
     @Effect({dispatch: false})
-    authLogout = this.actions$
-    .ofType(AuthActions.LOGOUT)
+    authLogout = this.actions$.ofType(AuthActions.LOGOUT)
     .pipe(tap(() => {
         this.router.navigate(['/']);
     }));

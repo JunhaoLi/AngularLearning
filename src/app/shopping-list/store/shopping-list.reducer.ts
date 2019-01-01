@@ -17,7 +17,7 @@ const initialState: State = {
 };
 
 export function shoppingListReducer(state = initialState, action: ShoppingListActions.ShoppingListActions) {
-    switch(action.type) {
+    switch (action.type) {
         case ShoppingListActions.ADD_INGREDIENT:
             return {
                 ...state,
@@ -50,7 +50,7 @@ export function shoppingListReducer(state = initialState, action: ShoppingListAc
                 ingredients: oldIngredients,
                 editedIngredient: null,
                 editedIngredientIndex: -1
-            }
+            };
         case ShoppingListActions.START_EDIT:
             const editIngredient = {...state.ingredients[action.payload]};
             console.log(editIngredient);
@@ -58,13 +58,13 @@ export function shoppingListReducer(state = initialState, action: ShoppingListAc
                 ...state,
                 editedIngredient: editIngredient,
                 editedIngredientIndex: action.payload
-            }
+            };
         case ShoppingListActions.STOP_EDIT:
             return {
                 ...state,
                 editedIngredient: null,
                 editedIngredientIndex: -1
-            }
+            };
         default:
             return state;
     }
