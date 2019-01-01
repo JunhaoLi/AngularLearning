@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
-import { DataStorageService } from '../../shared/data-storage.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import * as fromApp from 'src/app/store/app.reducers';
 import * as fromAuth from '../../auth/store/auth.reducers';
 import * as fromAuthActions from '../../auth/store/auth.actions';
+import * as RecipeActions from '../../recipes/store/recipe.actions';
 
 @Component({
   selector: 'app-header',
@@ -17,21 +16,18 @@ export class HeaderComponent implements OnInit {
 
   authState: Observable<fromAuth.State>;
 
-  constructor(
-    private router: Router,
-    private dataStorageService: DataStorageService,
-    private store: Store<fromApp.AppState>) {}
+  constructor(private store: Store<fromApp.AppState>) {}
 
   ngOnInit() {
     this.authState = this.store.select('auth');
   }
 
   onSaveData() {
-    this.dataStorageService.storeRecipe().subscribe(() => {});
+    this.store.dispatch(new RecipeActions.StoreRecipes());
   }
 
   onFetchData() {
-    this.dataStorageService.getRecipes();
+    this.store.dispatch(new RecipeActions.FetchRecipes());
   }
 
   onLogout() {
