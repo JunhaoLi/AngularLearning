@@ -3,7 +3,6 @@ import { HttpClient, HttpRequest } from "@angular/common/http";
 
 import { RecipeService } from "../recipes/recipe.service";
 import { Recipe } from "../recipes/recipe.model";
-import { AuthService } from "../auth/auth.service";
 
 import 'rxjs/Rx';
 
@@ -11,8 +10,7 @@ import 'rxjs/Rx';
 export class DataStorageService {
     constructor(
         private httpClient: HttpClient,
-        private recipeService: RecipeService,
-        private authService: AuthService) {}
+        private recipeService: RecipeService) {}
 
     storeRecipe() {
         const req = new HttpRequest(

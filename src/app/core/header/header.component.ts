@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { DataStorageService } from '../../shared/data-storage.service';
-import { AuthService } from '../../auth/auth.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import * as fromApp from 'src/app/store/app.reducers';
 import * as fromAuth from '../../auth/store/auth.reducers';
+import * as fromAuthActions from '../../auth/store/auth.actions';
 
 @Component({
   selector: 'app-header',
@@ -20,7 +20,6 @@ export class HeaderComponent implements OnInit {
   constructor(
     private router: Router,
     private dataStorageService: DataStorageService,
-    private authService: AuthService,
     private store: Store<fromApp.AppState>) {}
 
   ngOnInit() {
@@ -36,11 +35,11 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogout() {
-    this.authService.logout();
+    this.store.dispatch(new fromAuthActions.Logout());
     this.router.navigate(['/']);
   }
 
   isAuthenticated() {
-    return this.authService.isAuthenticated();
+    this.store.dispatch(new fromAuthActions.Logout());
   }
 }

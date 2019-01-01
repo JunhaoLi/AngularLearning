@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import  * as firebase from 'firebase';
-import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,13 +8,12 @@ import { AuthService } from './auth/auth.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private authService: AuthService){}
+  constructor(){}
   
   ngOnInit() {
     firebase.initializeApp({
       apiKey: "AIzaSyC-AvpfVMYfqd5VLYR8PCkIAIHQp2SSuLE",
       authDomain: "angularlearning-hans.firebaseapp.com"
     });
-    this.authService.loadUser();
   }
 }
