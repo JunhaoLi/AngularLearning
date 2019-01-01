@@ -3,7 +3,7 @@ import { Effect, Actions } from '@ngrx/effects';
 
 import * as AuthActions from './auth.actions';
 import * as firebase from 'firebase';
-import { map, switchMap, mergeMap } from 'rxjs/operators';
+import { map, switchMap, mergeMap, tap } from 'rxjs/operators';
 import { from } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -56,12 +56,16 @@ export class AuthEffects {
         }];
     }));
 
-    @Effect()
+    // reducer still trigger, even though we don't dispatch here
+    // but effect always trigger first
+    @Effect({dispatch: false})
     authLogout = this.actions$
-    .ofType(AuthActions.LOGOUT);
+    .ofType(AuthActions.LOGOUT)
+    .pipe(tap(() => {
+        this.router.navigate(['/']);
+    }));
 
     constructor(
         private router: Router,
         private actions$: Actions) {}
-
 }
