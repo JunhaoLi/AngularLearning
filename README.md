@@ -16,7 +16,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
 * master branch is clean project created by angular cli
-* develop branch is clean project after chapter 2
+* develop branch is to the course completed status
 * s[number] branch means the branch for section [number]
 * for each course project, I will create a named branch after it is completed
 
